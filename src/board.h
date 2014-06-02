@@ -11,13 +11,21 @@
 #include <string.h>
 #include <stdio.h>
 
+#define SIM
+
+#ifndef SIM
 #include "stm32f10x_conf.h"
 #include "core_cm3.h"
+#else
+#include "sim.h"
+#endif
 
 #ifndef __CC_ARM
+#ifndef SIM
 // only need this garbage on gcc
 #define USE_LAME_PRINTF
 #include "printf.h"
+#endif
 #endif
 
 #include "drv_system.h"         // timers, delays, etc

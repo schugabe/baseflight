@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>F2ACE5EE-5447-402C-ABD6-CA75CBC1167F</string>
+	<key>IDESourceControlProjectName</key>
+	<string>naze_sim</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>D9CB02A4-FAD7-49C4-AB53-8C1C8277CF67</key>
+		<string>ssh://github.com/schugabe/baseflight.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>naze_sim/naze_sim.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>D9CB02A4-FAD7-49C4-AB53-8C1C8277CF67</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>ssh://github.com/schugabe/baseflight.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>D9CB02A4-FAD7-49C4-AB53-8C1C8277CF67</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>D9CB02A4-FAD7-49C4-AB53-8C1C8277CF67</string>
+			<key>IDESourceControlWCCName</key>
+			<string>baseflight</string>
+		</dict>
+	</array>
+</dict>
+</plist>

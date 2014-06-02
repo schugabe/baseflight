@@ -111,7 +111,7 @@ void beep_code(char first, char second, char third, char pause)
     }
 }
 
-static void beep(uint16_t pulse)
+static void __attribute__((overloadable)) beep(uint16_t pulse)
 {
     if (!buzzerIsOn && (millis() >= (buzzerLastToggleTime + 50))) {         // Buzzer is off and long pause time is up -> turn it on
         buzzerIsOn = 1;

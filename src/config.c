@@ -7,7 +7,11 @@
 #endif
 
 #define FLASH_PAGE_SIZE                 ((uint16_t)0x400)
+#ifndef SIM
 #define FLASH_WRITE_ADDR                (0x08000000 + (uint32_t)FLASH_PAGE_SIZE * (FLASH_PAGE_COUNT - 2))       // use the last 2 KB for storage
+#else
+uint8_t FLASH_WRITE_ADDR[(uint32_t)FLASH_PAGE_SIZE * 2];
+#endif
 
 master_t mcfg;  // master config struct with data independent from profiles
 config_t cfg;   // profile config struct

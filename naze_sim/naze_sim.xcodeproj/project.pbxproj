@@ -1,0 +1,353 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		8FB5F553193B8FD800122934 /* drv_mpu6050_sim.c in Sources */ = {isa = PBXBuildFile; fileRef = 8FB5F552193B8FD800122934 /* drv_mpu6050_sim.c */; };
+		8FB5F555193B960000122934 /* sim_flash.c in Sources */ = {isa = PBXBuildFile; fileRef = 8FB5F554193B960000122934 /* sim_flash.c */; };
+		8FB5F557193B965000122934 /* sim_unimplemented.c in Sources */ = {isa = PBXBuildFile; fileRef = 8FB5F556193B965000122934 /* sim_unimplemented.c */; };
+		8FB5F559193B982600122934 /* sim_pwm.c in Sources */ = {isa = PBXBuildFile; fileRef = 8FB5F558193B982600122934 /* sim_pwm.c */; };
+		8FE71E671939185000217743 /* naze_sim.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8FE71E661939185000217743 /* naze_sim.1 */; };
+		8FE71E71193918CF00217743 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 8FE71E70193918CF00217743 /* main.c */; };
+		8FE71E7619391C1500217743 /* sim.c in Sources */ = {isa = PBXBuildFile; fileRef = 8FE71E7519391C1500217743 /* sim.c */; };
+		8FE71E7819391D9C00217743 /* sensors.c in Sources */ = {isa = PBXBuildFile; fileRef = 8FE71E7719391D9C00217743 /* sensors.c */; };
+		8FE71E7A19391DD100217743 /* mw.c in Sources */ = {isa = PBXBuildFile; fileRef = 8FE71E7919391DD100217743 /* mw.c */; };
+		8FE71E7C19391DF500217743 /* imu.c in Sources */ = {isa = PBXBuildFile; fileRef = 8FE71E7B19391DF500217743 /* imu.c */; };
+		8FE71E7E19391E0E00217743 /* gps.c in Sources */ = {isa = PBXBuildFile; fileRef = 8FE71E7D19391E0E00217743 /* gps.c */; };
+		8FE71E8019391E9700217743 /* config.c in Sources */ = {isa = PBXBuildFile; fileRef = 8FE71E7F19391E9700217743 /* config.c */; };
+		8FE71E851939214200217743 /* cli.c in Sources */ = {isa = PBXBuildFile; fileRef = 8FE71E831939214200217743 /* cli.c */; };
+		8FE71E871939219C00217743 /* serial.c in Sources */ = {isa = PBXBuildFile; fileRef = 8FE71E861939219C00217743 /* serial.c */; };
+		8FE71E8A1939220300217743 /* utils.c in Sources */ = {isa = PBXBuildFile; fileRef = 8FE71E881939220300217743 /* utils.c */; };
+		8FE71E98193924D400217743 /* buzzer.c in Sources */ = {isa = PBXBuildFile; fileRef = 8FE71E97193924D400217743 /* buzzer.c */; };
+		8FE71E9F1939277500217743 /* mixer.c in Sources */ = {isa = PBXBuildFile; fileRef = 8FE71E9E1939277500217743 /* mixer.c */; };
+		8FE71EA1193929CA00217743 /* rxmsp.c in Sources */ = {isa = PBXBuildFile; fileRef = 8FE71EA0193929CA00217743 /* rxmsp.c */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		8FE71E5F1939185000217743 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+				8FE71E671939185000217743 /* naze_sim.1 in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		8FB5F552193B8FD800122934 /* drv_mpu6050_sim.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = drv_mpu6050_sim.c; sourceTree = "<group>"; };
+		8FB5F554193B960000122934 /* sim_flash.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sim_flash.c; sourceTree = "<group>"; };
+		8FB5F556193B965000122934 /* sim_unimplemented.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sim_unimplemented.c; sourceTree = "<group>"; };
+		8FB5F558193B982600122934 /* sim_pwm.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sim_pwm.c; sourceTree = "<group>"; };
+		8FE71E611939185000217743 /* naze_sim */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = naze_sim; sourceTree = BUILT_PRODUCTS_DIR; };
+		8FE71E661939185000217743 /* naze_sim.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = naze_sim.1; sourceTree = "<group>"; };
+		8FE71E6F193918CF00217743 /* board.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = board.h; path = ../../src/board.h; sourceTree = "<group>"; };
+		8FE71E70193918CF00217743 /* main.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = main.c; path = ../../src/main.c; sourceTree = "<group>"; };
+		8FE71E72193918F200217743 /* mw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mw.h; path = ../../src/mw.h; sourceTree = "<group>"; };
+		8FE71E73193918F200217743 /* telemetry_common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = telemetry_common.h; path = ../../src/telemetry_common.h; sourceTree = "<group>"; };
+		8FE71E741939199000217743 /* sim.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sim.h; sourceTree = "<group>"; };
+		8FE71E7519391C1500217743 /* sim.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sim.c; sourceTree = "<group>"; };
+		8FE71E7719391D9C00217743 /* sensors.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = sensors.c; path = ../../src/sensors.c; sourceTree = "<group>"; };
+		8FE71E7919391DD100217743 /* mw.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = mw.c; path = ../../src/mw.c; sourceTree = "<group>"; };
+		8FE71E7B19391DF500217743 /* imu.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = imu.c; path = ../../src/imu.c; sourceTree = "<group>"; };
+		8FE71E7D19391E0E00217743 /* gps.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = gps.c; path = ../../src/gps.c; sourceTree = "<group>"; };
+		8FE71E7F19391E9700217743 /* config.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = config.c; path = ../../src/config.c; sourceTree = "<group>"; };
+		8FE71E8119391FD600217743 /* drv_serial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = drv_serial.h; path = ../../src/drv_serial.h; sourceTree = "<group>"; };
+		8FE71E821939210000217743 /* drv_adc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = drv_adc.h; path = ../../src/drv_adc.h; sourceTree = "<group>"; };
+		8FE71E831939214200217743 /* cli.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = cli.c; path = ../../src/cli.c; sourceTree = "<group>"; };
+		8FE71E841939214200217743 /* cli.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cli.h; path = ../../src/cli.h; sourceTree = "<group>"; };
+		8FE71E861939219C00217743 /* serial.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = serial.c; path = ../../src/serial.c; sourceTree = "<group>"; };
+		8FE71E881939220300217743 /* utils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = utils.c; path = ../../src/utils.c; sourceTree = "<group>"; };
+		8FE71E891939220300217743 /* utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = utils.h; path = ../../src/utils.h; sourceTree = "<group>"; };
+		8FE71E8B1939243700217743 /* drv_adxl345.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = drv_adxl345.h; path = ../../src/drv_adxl345.h; sourceTree = "<group>"; };
+		8FE71E8C1939243700217743 /* drv_bma280.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = drv_bma280.h; path = ../../src/drv_bma280.h; sourceTree = "<group>"; };
+		8FE71E8D1939243700217743 /* drv_bmp085.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = drv_bmp085.h; path = ../../src/drv_bmp085.h; sourceTree = "<group>"; };
+		8FE71E8E1939243700217743 /* drv_hcsr04.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = drv_hcsr04.h; path = ../../src/drv_hcsr04.h; sourceTree = "<group>"; };
+		8FE71E8F1939243700217743 /* drv_hmc5883l.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = drv_hmc5883l.h; path = ../../src/drv_hmc5883l.h; sourceTree = "<group>"; };
+		8FE71E901939243700217743 /* drv_i2c.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = drv_i2c.h; path = ../../src/drv_i2c.h; sourceTree = "<group>"; };
+		8FE71E911939243700217743 /* drv_l3g4200d.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = drv_l3g4200d.h; path = ../../src/drv_l3g4200d.h; sourceTree = "<group>"; };
+		8FE71E921939243700217743 /* drv_mma845x.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = drv_mma845x.h; path = ../../src/drv_mma845x.h; sourceTree = "<group>"; };
+		8FE71E931939243700217743 /* drv_mpu3050.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = drv_mpu3050.h; path = ../../src/drv_mpu3050.h; sourceTree = "<group>"; };
+		8FE71E941939243700217743 /* drv_mpu6050.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = drv_mpu6050.h; path = ../../src/drv_mpu6050.h; sourceTree = "<group>"; };
+		8FE71E951939243700217743 /* drv_ms5611.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = drv_ms5611.h; path = ../../src/drv_ms5611.h; sourceTree = "<group>"; };
+		8FE71E961939243700217743 /* drv_pwm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = drv_pwm.h; path = ../../src/drv_pwm.h; sourceTree = "<group>"; };
+		8FE71E97193924D400217743 /* buzzer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = buzzer.c; path = ../../src/buzzer.c; sourceTree = "<group>"; };
+		8FE71E991939277500217743 /* drv_softserial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = drv_softserial.h; path = ../../src/drv_softserial.h; sourceTree = "<group>"; };
+		8FE71E9A1939277500217743 /* drv_spi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = drv_spi.h; path = ../../src/drv_spi.h; sourceTree = "<group>"; };
+		8FE71E9B1939277500217743 /* drv_system.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = drv_system.h; path = ../../src/drv_system.h; sourceTree = "<group>"; };
+		8FE71E9C1939277500217743 /* drv_timer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = drv_timer.h; path = ../../src/drv_timer.h; sourceTree = "<group>"; };
+		8FE71E9D1939277500217743 /* drv_uart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = drv_uart.h; path = ../../src/drv_uart.h; sourceTree = "<group>"; };
+		8FE71E9E1939277500217743 /* mixer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = mixer.c; path = ../../src/mixer.c; sourceTree = "<group>"; };
+		8FE71EA0193929CA00217743 /* rxmsp.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = rxmsp.c; path = ../../src/rxmsp.c; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8FE71E5E1939185000217743 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		8FE71E581939185000217743 = {
+			isa = PBXGroup;
+			children = (
+				8FE71E631939185000217743 /* naze_sim */,
+				8FE71E621939185000217743 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		8FE71E621939185000217743 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8FE71E611939185000217743 /* naze_sim */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		8FE71E631939185000217743 /* naze_sim */ = {
+			isa = PBXGroup;
+			children = (
+				8FE71EA0193929CA00217743 /* rxmsp.c */,
+				8FE71E991939277500217743 /* drv_softserial.h */,
+				8FE71E9A1939277500217743 /* drv_spi.h */,
+				8FE71E9B1939277500217743 /* drv_system.h */,
+				8FE71E9C1939277500217743 /* drv_timer.h */,
+				8FE71E9D1939277500217743 /* drv_uart.h */,
+				8FE71E9E1939277500217743 /* mixer.c */,
+				8FE71E97193924D400217743 /* buzzer.c */,
+				8FE71E8B1939243700217743 /* drv_adxl345.h */,
+				8FE71E8C1939243700217743 /* drv_bma280.h */,
+				8FE71E8D1939243700217743 /* drv_bmp085.h */,
+				8FE71E8E1939243700217743 /* drv_hcsr04.h */,
+				8FE71E8F1939243700217743 /* drv_hmc5883l.h */,
+				8FE71E901939243700217743 /* drv_i2c.h */,
+				8FE71E911939243700217743 /* drv_l3g4200d.h */,
+				8FE71E921939243700217743 /* drv_mma845x.h */,
+				8FE71E931939243700217743 /* drv_mpu3050.h */,
+				8FE71E941939243700217743 /* drv_mpu6050.h */,
+				8FE71E951939243700217743 /* drv_ms5611.h */,
+				8FE71E961939243700217743 /* drv_pwm.h */,
+				8FE71E881939220300217743 /* utils.c */,
+				8FE71E891939220300217743 /* utils.h */,
+				8FE71E861939219C00217743 /* serial.c */,
+				8FE71E831939214200217743 /* cli.c */,
+				8FE71E841939214200217743 /* cli.h */,
+				8FE71E821939210000217743 /* drv_adc.h */,
+				8FE71E8119391FD600217743 /* drv_serial.h */,
+				8FE71E7F19391E9700217743 /* config.c */,
+				8FE71E7D19391E0E00217743 /* gps.c */,
+				8FE71E7B19391DF500217743 /* imu.c */,
+				8FE71E7919391DD100217743 /* mw.c */,
+				8FE71E7719391D9C00217743 /* sensors.c */,
+				8FE71E72193918F200217743 /* mw.h */,
+				8FE71E73193918F200217743 /* telemetry_common.h */,
+				8FE71E6F193918CF00217743 /* board.h */,
+				8FE71E70193918CF00217743 /* main.c */,
+				8FE71E661939185000217743 /* naze_sim.1 */,
+				8FE71E741939199000217743 /* sim.h */,
+				8FE71E7519391C1500217743 /* sim.c */,
+				8FB5F552193B8FD800122934 /* drv_mpu6050_sim.c */,
+				8FB5F554193B960000122934 /* sim_flash.c */,
+				8FB5F556193B965000122934 /* sim_unimplemented.c */,
+				8FB5F558193B982600122934 /* sim_pwm.c */,
+			);
+			path = naze_sim;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8FE71E601939185000217743 /* naze_sim */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8FE71E6A1939185000217743 /* Build configuration list for PBXNativeTarget "naze_sim" */;
+			buildPhases = (
+				8FE71E5D1939185000217743 /* Sources */,
+				8FE71E5E1939185000217743 /* Frameworks */,
+				8FE71E5F1939185000217743 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = naze_sim;
+			productName = naze_sim;
+			productReference = 8FE71E611939185000217743 /* naze_sim */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		8FE71E591939185000217743 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = "Johannes Kasberger";
+			};
+			buildConfigurationList = 8FE71E5C1939185000217743 /* Build configuration list for PBXProject "naze_sim" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 8FE71E581939185000217743;
+			productRefGroup = 8FE71E621939185000217743 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8FE71E601939185000217743 /* naze_sim */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8FE71E5D1939185000217743 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8FE71E7E19391E0E00217743 /* gps.c in Sources */,
+				8FE71E71193918CF00217743 /* main.c in Sources */,
+				8FB5F553193B8FD800122934 /* drv_mpu6050_sim.c in Sources */,
+				8FB5F557193B965000122934 /* sim_unimplemented.c in Sources */,
+				8FE71E8019391E9700217743 /* config.c in Sources */,
+				8FE71EA1193929CA00217743 /* rxmsp.c in Sources */,
+				8FE71E871939219C00217743 /* serial.c in Sources */,
+				8FE71E7A19391DD100217743 /* mw.c in Sources */,
+				8FE71E98193924D400217743 /* buzzer.c in Sources */,
+				8FE71E8A1939220300217743 /* utils.c in Sources */,
+				8FE71E7819391D9C00217743 /* sensors.c in Sources */,
+				8FE71E7C19391DF500217743 /* imu.c in Sources */,
+				8FE71E9F1939277500217743 /* mixer.c in Sources */,
+				8FE71E851939214200217743 /* cli.c in Sources */,
+				8FB5F555193B960000122934 /* sim_flash.c in Sources */,
+				8FE71E7619391C1500217743 /* sim.c in Sources */,
+				8FB5F559193B982600122934 /* sim_pwm.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		8FE71E681939185000217743 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		8FE71E691939185000217743 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		8FE71E6B1939185000217743 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				LINK_WITH_STANDARD_LIBRARIES = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		8FE71E6C1939185000217743 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				LINK_WITH_STANDARD_LIBRARIES = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		8FE71E5C1939185000217743 /* Build configuration list for PBXProject "naze_sim" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8FE71E681939185000217743 /* Debug */,
+				8FE71E691939185000217743 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8FE71E6A1939185000217743 /* Build configuration list for PBXNativeTarget "naze_sim" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8FE71E6B1939185000217743 /* Debug */,
+				8FE71E6C1939185000217743 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 8FE71E591939185000217743 /* Project object */;
+}
