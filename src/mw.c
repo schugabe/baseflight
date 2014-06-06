@@ -3,7 +3,7 @@
 
 #include "cli.h"
 #include "telemetry_common.h"
-
+#include <sys/time.h>
 flags_t f;
 int16_t debug[4];
 uint8_t toggleBeep = 0;
@@ -237,7 +237,8 @@ void annexCode(void)
 
 uint16_t pwmReadRawRC(uint8_t chan)
 {
-    return pwmRead(mcfg.rcmap[chan]);
+    uint8_t tmp=mcfg.rcmap[chan];
+    return pwmRead(tmp);
 }
 
 void computeRC(void)
@@ -474,6 +475,7 @@ void loop(void)
     if (((int32_t)(currentTime - rcTime) >= 0) || rcReady) { // 50Hz or data driven
         rcReady = false;
         rcTime = currentTime + 20000;
+        
         computeRC();
 
         // in 3D mode, we need to be able to disarm by switch at any time
@@ -592,7 +594,6 @@ void loop(void)
                     blinkLED(2, 40, i);
                     // TODO alarmArray[0] = i;
                 }
-
                 // Arm via YAW
                 if (cfg.activate[BOXARM] == 0 && (rcSticks == THR_LO + YAW_HI + PIT_CE + ROL_CE))
                     mwArm();
@@ -822,7 +823,7 @@ void loop(void)
     currentTime = micros();
     if (mcfg.looptime == 0 || (int32_t)(currentTime - loopTime) >= 0) {
         loopTime = currentTime + mcfg.looptime;
-
+        
         computeIMU();
         annexCode();
         // Measure loop rate just afer reading the sensors

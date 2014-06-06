@@ -260,7 +260,7 @@ static void getEstimatedAttitude(void)
         }
         accMag += (int32_t)accSmooth[axis] * accSmooth[axis];
     }
-    accMag = accMag * 100 / ((int32_t)acc_1G * acc_1G);
+    accMag = accMag * 100 /((int32_t)acc_1G * acc_1G);
 
     rotateV(&EstG.V, deltaGyroAngle);
     if (sensors(SENSOR_MAG)) {
@@ -283,6 +283,10 @@ static void getEstimatedAttitude(void)
             EstM.A[axis] = (EstM.A[axis] * (float)mcfg.gyro_cmpfm_factor + magADC[axis]) * INV_GYR_CMPFM_FACTOR;
     }
 
+    static long count = 0;
+    count++;
+    if (EstG.A[Z] > smallAngle)
+        count++;
     f.SMALL_ANGLE = (EstG.A[Z] > smallAngle);
 
     // Attitude of the estimated vector

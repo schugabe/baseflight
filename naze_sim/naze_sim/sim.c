@@ -5,6 +5,8 @@
 //  Created by Johannes Kasberger on 30.05.14.
 //  Copyright (c) 2014 Johannes Kasberger. All rights reserved.
 //
+#include <unistd.h>
+#include <sys/time.h>
 
 #include "board.h"
 #include "mw.h"
@@ -19,9 +21,11 @@ USART_TypeDef *USART2 = &USART2_BASE;
 GPIO_TypeDef GPIOB_data;
 GPIO_TypeDef *GPIOB = &GPIOB_data;
 
+struct timeval startTime;
 
 void systemInit(bool overclock) {
-    
+    gettimeofday(&startTime,NULL);
+    return;
 }
 
 // failure
@@ -36,17 +40,22 @@ void systemReset(bool toBootloader) {
 }
 
 void delayMicroseconds(uint32_t us) {
-    
+    usleep(us);
 }
 
 void delay(uint32_t ms) {
-    
+    delayMicroseconds(ms*1000);
 }
 
 uint32_t micros(void) {
-    return 0;
+    struct timeval tv;
+    gettimeofday(&tv,NULL);
+    long bla = 1000000 * (tv.tv_sec-startTime.tv_sec) + (tv.tv_usec-startTime.tv_usec);
+    return bla;
 }
 
 uint32_t millis(void) {
-    return 0;
+    struct timeval tv;
+    gettimeofday(&tv,NULL);
+    return micros()/1000;
 }
