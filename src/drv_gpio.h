@@ -43,10 +43,12 @@ typedef struct {
     GPIO_Speed speed;
 } gpio_config_t;
 
+#ifndef SIM
 #define digitalHi(p, i)     { p->BSRR = i; }
 #define digitalLo(p, i)     { p->BRR = i; }
 #define digitalToggle(p, i) { p->ODR ^= i; }
 #define digitalIn(p, i)     (p->IDR & i)
+#endif
 
 void gpioInit(GPIO_TypeDef *gpio, gpio_config_t *config);
 void gpioExtiLineConfig(uint8_t portsrc, uint8_t pinsrc);

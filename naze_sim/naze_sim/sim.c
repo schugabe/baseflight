@@ -20,7 +20,9 @@ USART_TypeDef USART2_BASE;
 USART_TypeDef *USART2 = &USART2_BASE;
 GPIO_TypeDef GPIOB_data;
 GPIO_TypeDef *GPIOB = &GPIOB_data;
-
+uint32_t U_ID_0 = 0x1FFFF7E8;
+uint32_t U_ID_1 = 0x1FFFF7EC;
+uint32_t U_ID_2 = 0x1FFFF7F0;
 struct timeval startTime;
 
 void systemInit(bool overclock) {
@@ -50,12 +52,9 @@ void delay(uint32_t ms) {
 uint32_t micros(void) {
     struct timeval tv;
     gettimeofday(&tv,NULL);
-    long bla = 1000000 * (tv.tv_sec-startTime.tv_sec) + (tv.tv_usec-startTime.tv_usec);
-    return bla;
+    return 1000000 * (tv.tv_sec-startTime.tv_sec) + (tv.tv_usec-startTime.tv_usec);
 }
 
 uint32_t millis(void) {
-    struct timeval tv;
-    gettimeofday(&tv,NULL);
     return micros()/1000;
 }

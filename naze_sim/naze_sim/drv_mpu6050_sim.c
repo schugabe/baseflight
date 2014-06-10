@@ -25,9 +25,9 @@ static void mpu6050AccRead(int16_t *accData)
 {
     int16_t data[3];
     
-    data[X] = 200;
-    data[Y] = 200;
-    data[Z] = acc_1G;
+    data[X] = -310;
+    data[Y] = -400;
+    data[Z] = 4112;
     
     alignSensors(data, accData, accAlign);
 }
@@ -40,20 +40,21 @@ static void mpu6050GyroInit(sensor_align_e align)
 
 static void mpu6050GyroRead(int16_t *gyroData)
 {
-    int16_t data[3];
+    int16_t data[3] = {0,0,0};
     
-    if (!f.ARMED) {
+    /*if (!f.ARMED) {
         data[X] = 0;
         data[Y] = 0;
         data[Z] = 0;
     }
-    else {
-        static int bla = 0;
+    else {*/
+    /*    static int bla = 0;
         bla++;
-        data[X] = (int16_t)(100.0f*cosf(bla));
-        data[Y] = (int16_t)(100.0f*sinf(bla));
-        data[Z] = (int16_t)(100.0f*cosf(bla));
-    }
+    if (bla>1200)
+        data[X] = (int16_t)(8000.0f*cosf(bla));*/
+        //data[Y] = (int16_t)(100.0f*sinf(bla));
+        //data[Z] = (int16_t)(100.0f*cosf(bla));
+    //}
     
     alignSensors(data, gyroData, gyroAlign);
 }

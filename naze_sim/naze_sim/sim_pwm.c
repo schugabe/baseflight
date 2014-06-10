@@ -28,25 +28,27 @@ void pwmWriteServo(uint8_t index, uint16_t value) {
     
 }
 uint16_t pwmRead(uint8_t channel) {
-    static int ticks = 0;
+/*    static long ticks = 0;
     ticks++;
+    
+    if (ticks < 1000)
+        return mcfg.midrc;
+        
     if (!f.ARMED) {
-    if (ticks < 1000) {
-        if (channel == 2) {
-            return mcfg.mincheck-1;
+        if (ticks < 2500) {
+            if (channel == 2) {
+                return mcfg.mincheck-1;
+            }
+            if (channel == 3) {
+                return mcfg.maxcheck+1;
+            }
+            return mcfg.midrc;
         }
-        if (channel == 3) {
-            return mcfg.maxcheck+1;
+        else {
+            if (ticks > 2700)
+                ticks = 1001;
+            return mcfg.midrc;
         }
-        return mcfg.midrc;
-    }
-    else {
-        if (ticks > 1500)
-            ticks = 0;
-        return mcfg.midrc;
-    }
-    }
-    else {
-        return mcfg.midrc;
-    }
+    }*/
+    return mcfg.midrc;
 }

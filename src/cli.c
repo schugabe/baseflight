@@ -230,6 +230,9 @@ const clivalue_t valueTable[] = {
 
 #define VALUE_COUNT (sizeof(valueTable) / sizeof(clivalue_t))
 
+#ifndef SIM
+#define cliPrintf(fmt, ...) printf(fmt, ##__VA_ARGS__)
+#endif
 
 typedef union {
     int32_t int_value;
@@ -440,7 +443,7 @@ static void cliAux(char *cmdline)
     if (len == 0) {
         // print out aux channel settings
         for (i = 0; i < CHECKBOXITEMS; i++)
-            printf("aux %u %u\r\n", i, cfg.activate[i]);
+            cliPrintf("aux %u %u\r\n", i, cfg.activate[i]);
     } else {
         ptr = cmdline;
         i = atoi(ptr);
@@ -449,7 +452,7 @@ static void cliAux(char *cmdline)
             val = atoi(ptr);
             cfg.activate[i] = val;
         } else {
-            printf("Invalid Feature index: must be < %u\r\n", CHECKBOXITEMS);
+            cliPrintf("Invalid Feature index: must be < %u\r\n", CHECKBOXITEMS);
         }
     }
 }
@@ -471,11 +474,11 @@ static void cliCMix(char *cmdline)
             if (mcfg.customMixer[i].throttle == 0.0f)
                 break;
             num_motors++;
-            printf("#%d:\t", i + 1);
-            printf("%s\t", ftoa(mcfg.customMixer[i].throttle, buf));
-            printf("%s\t", ftoa(mcfg.customMixer[i].roll, buf));
-            printf("%s\t", ftoa(mcfg.customMixer[i].pitch, buf));
-            printf("%s\r\n", ftoa(mcfg.customMixer[i].yaw, buf));
+            cliPrintf("#%d:\t", i + 1);
+            cliPrintf("%s\t", ftoa(mcfg.customMixer[i].throttle, buf));
+            cliPrintf("%s\t", ftoa(mcfg.customMixer[i].roll, buf));
+            cliPrintf("%s\t", ftoa(mcfg.customMixer[i].pitch, buf));
+            cliPrintf("%s\r\n", ftoa(mcfg.customMixer[i].yaw, buf));
         }
         mixsum[0] = mixsum[1] = mixsum[2] = 0.0f;
         for (i = 0; i < num_motors; i++) {
@@ -503,7 +506,7 @@ static void cliCMix(char *cmdline)
                 }
                 if (strncasecmp(ptr, mixerNames[i], len) == 0) {
                     mixerLoadMix(i);
-                    printf("Loaded %s mix...\r\n", mixerNames[i]);
+                    cliPrintf("Loaded %s mix...\r\n", mixerNames[i]);
                     cliCMix("");
                     break;
                 }
@@ -539,7 +542,7 @@ static void cliCMix(char *cmdline)
                 cliCMix("");
             }
         } else {
-            printf("Motor number must be between 1 and %d\r\n", MAX_MOTORS);
+            cliPrintf("Motor number must be between 1 and %d\r\n", MAX_MOTORS);
         }
     }
 }
@@ -561,13 +564,13 @@ static void cliDump(char *cmdline)
     uint32_t mask;
     const clivalue_t *setval;
 
-    printf("Current Config: Copy everything below here...\r\n");
+    cliPrintf("Current Config: Copy everything below here...\r\n");
 
     // print out aux switches
     cliAux("");
 
     // print out current motor mix
-    printf("mixer %s\r\n", mixerNames[mcfg.mixerConfiguration - 1]);
+    cliPrintf("mixer %s\r\n", mixerNames[mcfg.mixerConfiguration - 1]);
 
     // print custom mix if exists
     if (mcfg.customMixer[0].throttle != 0.0f) {
@@ -578,21 +581,21 @@ static void cliDump(char *cmdline)
             roll = mcfg.customMixer[i].roll;
             pitch = mcfg.customMixer[i].pitch;
             yaw = mcfg.customMixer[i].yaw;
-            printf("cmix %d", i + 1);
+            cliPrintf("cmix %d", i + 1);
             if (thr < 0)
-                printf(" ");
-            printf("%s", ftoa(thr, buf));
+                cliPrintf(" ");
+            cliPrintf("%s", ftoa(thr, buf));
             if (roll < 0)
-                printf(" ");
-            printf("%s", ftoa(roll, buf));
+                cliPrintf(" ");
+            cliPrintf("%s", ftoa(roll, buf));
             if (pitch < 0)
-                printf(" ");
-            printf("%s", ftoa(pitch, buf));
+                cliPrintf(" ");
+            cliPrintf("%s", ftoa(pitch, buf));
             if (yaw < 0)
-                printf(" ");
-            printf("%s\r\n", ftoa(yaw, buf));
+                cliPrintf(" ");
+            cliPrintf("%s\r\n", ftoa(yaw, buf));
         }
-        printf("cmix %d 0 0 0 0\r\n", i + 1);
+        cliPrintf("cmix %d 0 0 0 0\r\n", i + 1);
     }
 
     // print enabled features
@@ -600,25 +603,25 @@ static void cliDump(char *cmdline)
     for (i = 0; ; i++) { // disable all feature first
         if (featureNames[i] == NULL)
             break;
-        printf("feature -%s\r\n", featureNames[i]);
+        cliPrintf("feature -%s\r\n", featureNames[i]);
     }
     for (i = 0; ; i++) {  // reenable what we want.
         if (featureNames[i] == NULL)
             break;
         if (mask & (1 << i))
-            printf("feature %s\r\n", featureNames[i]);
+            cliPrintf("feature %s\r\n", featureNames[i]);
     }
 
     // print RC MAPPING
     for (i = 0; i < 8; i++)
         buf[mcfg.rcmap[i]] = rcChannelLetters[i];
     buf[i] = '\0';
-    printf("map %s\r\n", buf);
+    cliPrintf("map %s\r\n", buf);
 
     // print settings
     for (i = 0; i < VALUE_COUNT; i++) {
         setval = &valueTable[i];
-        printf("set %s = ", valueTable[i].name);
+        cliPrintf("set %s = ", valueTable[i].name);
         cliPrintVar(setval, 0);
         cliPrint("\r\n");
     }
@@ -651,7 +654,7 @@ static void cliFeature(char *cmdline)
             if (featureNames[i] == NULL)
                 break;
             if (mask & (1 << i))
-                printf("%s ", featureNames[i]);
+                cliPrintf("%s ", featureNames[i]);
         }
         cliPrint("\r\n");
     } else if (strncasecmp(cmdline, "list", len) == 0) {
@@ -659,7 +662,7 @@ static void cliFeature(char *cmdline)
         for (i = 0; ; i++) {
             if (featureNames[i] == NULL)
                 break;
-            printf("%s ", featureNames[i]);
+            cliPrintf("%s ", featureNames[i]);
         }
         cliPrint("\r\n");
         return;
@@ -685,7 +688,7 @@ static void cliFeature(char *cmdline)
                     featureSet(1 << i);
                     cliPrint("Enabled ");
                 }
-                printf("%s\r\n", featureNames[i]);
+                cliPrintf("%s\r\n", featureNames[i]);
                 break;
             }
         }
@@ -706,7 +709,7 @@ static void cliHelp(char *cmdline)
 
     cliPrint("Available commands:\r\n");
     for (i = 0; i < CMD_COUNT; i++)
-        printf("%s\t%s\r\n", cmdTable[i].name, cmdTable[i].param);
+        cliPrintf("%s\t%s\r\n", cmdTable[i].name, cmdTable[i].param);
 }
 
 static void cliMap(char *cmdline)
@@ -733,7 +736,7 @@ static void cliMap(char *cmdline)
     for (i = 0; i < 8; i++)
         out[mcfg.rcmap[i]] = rcChannelLetters[i];
     out[i] = '\0';
-    printf("%s\r\n", out);
+    cliPrintf("%s\r\n", out);
 }
 
 static void cliMixer(char *cmdline)
@@ -744,14 +747,14 @@ static void cliMixer(char *cmdline)
     len = strlen(cmdline);
 
     if (len == 0) {
-        printf("Current mixer: %s\r\n", mixerNames[mcfg.mixerConfiguration - 1]);
+        cliPrintf("Current mixer: %s\r\n", mixerNames[mcfg.mixerConfiguration - 1]);
         return;
     } else if (strncasecmp(cmdline, "list", len) == 0) {
         cliPrint("Available mixers: ");
         for (i = 0; ; i++) {
             if (mixerNames[i] == NULL)
                 break;
-            printf("%s ", mixerNames[i]);
+            cliPrintf("%s ", mixerNames[i]);
         }
         cliPrint("\r\n");
         return;
@@ -764,7 +767,7 @@ static void cliMixer(char *cmdline)
         }
         if (strncasecmp(cmdline, mixerNames[i], len) == 0) {
             mcfg.mixerConfiguration = i + 1;
-            printf("Mixer set to %s\r\n", mixerNames[i]);
+            cliPrintf("Mixer set to %s\r\n", mixerNames[i]);
             break;
         }
     }
@@ -779,7 +782,7 @@ static void cliMotor(char *cmdline)
 
     len = strlen(cmdline);
     if (len == 0) {
-        printf("Usage:\r\nmotor index [value] - show [or set] motor value\r\n");
+        cliPrintf("Usage:\r\nmotor index [value] - show [or set] motor value\r\n");
         return;
     }
 
@@ -798,21 +801,21 @@ static void cliMotor(char *cmdline)
     }
 
     if (motor_index < 0 || motor_index >= MAX_MOTORS) {
-        printf("No such motor, use a number [0, %d]\r\n", MAX_MOTORS);
+        cliPrintf("No such motor, use a number [0, %d]\r\n", MAX_MOTORS);
         return;
     }
 
     if (index < 2) {
-        printf("Motor %d is set at %d\r\n", motor_index, motor_disarmed[motor_index]);
+        cliPrintf("Motor %d is set at %d\r\n", motor_index, motor_disarmed[motor_index]);
         return;
     }
 
     if (motor_value < 1000 || motor_value > 2000) {
-        printf("Invalid motor value, 1000..2000\r\n");
+        cliPrintf("Invalid motor value, 1000..2000\r\n");
         return;
     }
 
-    printf("Setting motor %d to %d\r\n", motor_index, motor_value);
+    cliPrintf("Setting motor %d to %d\r\n", motor_index, motor_value);
     motor_disarmed[motor_index] = motor_value;
 }
 
@@ -823,7 +826,7 @@ static void cliProfile(char *cmdline)
 
     len = strlen(cmdline);
     if (len == 0) {
-        printf("Current profile: %d\r\n", mcfg.current_profile);
+        cliPrintf("Current profile: %d\r\n", mcfg.current_profile);
         return;
     } else {
         i = atoi(cmdline);
@@ -882,16 +885,16 @@ static void cliPrintVar(const clivalue_t *var, uint32_t full)
             break;
 
         case VAR_FLOAT:
-            printf("%s", ftoa(*(float *)var->ptr, buf));
+            cliPrintf("%s", ftoa(*(float *)var->ptr, buf));
             if (full) {
-                printf(" %s", ftoa((float)var->min, buf));
-                printf(" %s", ftoa((float)var->max, buf));
+                cliPrintf(" %s", ftoa((float)var->min, buf));
+                cliPrintf(" %s", ftoa((float)var->max, buf));
             }
             return; // return from case for float only
     }
-    printf("%d", value);
+    cliPrintf("%d", value);
     if (full)
-        printf(" %d %d", var->min, var->max);
+        cliPrintf(" %d %d", var->min, var->max);
 }
 
 static void cliSetVar(const clivalue_t *var, const int_float_value_t value)
@@ -932,7 +935,7 @@ static void cliSet(char *cmdline)
         cliPrint("Current settings: \r\n");
         for (i = 0; i < VALUE_COUNT; i++) {
             val = &valueTable[i];
-            printf("%s = ", valueTable[i].name);
+            cliPrintf("%s = ", valueTable[i].name);
             cliPrintVar(val, len); // when len is 1 (when * is passed as argument), it will print min/max values as well, for gui
             cliPrint("\r\n");
         }
@@ -952,7 +955,7 @@ static void cliSet(char *cmdline)
                     else
                         tmp.int_value = value;
                     cliSetVar(val, tmp);
-                    printf("%s set to ", valueTable[i].name);
+                    cliPrintf("%s set to ", valueTable[i].name);
                     cliPrintVar(val, 0);
                 } else {
                     cliPrint("ERR: Value assignment out of range\r\n");
@@ -966,9 +969,9 @@ static void cliSet(char *cmdline)
         for (i = 0; i < VALUE_COUNT; i++) {
             if (strstr(valueTable[i].name, cmdline)) {
                 val = &valueTable[i];
-                printf("%s = ", valueTable[i].name);
+                cliPrintf("%s = ", valueTable[i].name);
                 cliPrintVar(val, 0);
-                printf("\r\n");
+                cliPrintf("\r\n");
             }
         }
     }
@@ -979,25 +982,25 @@ static void cliStatus(char *cmdline)
     uint8_t i;
     uint32_t mask;
 
-    printf("System Uptime: %d seconds, Voltage: %d * 0.1V (%dS battery)\r\n",
+    cliPrintf("System Uptime: %d seconds, Voltage: %d * 0.1V (%dS battery)\r\n",
         millis() / 1000, vbat, batteryCellCount);
     mask = sensorsMask();
 
-    printf("CPU %dMHz, detected sensors: ", (SystemCoreClock / 1000000));
+    cliPrintf("CPU %dMHz, detected sensors: ", (SystemCoreClock / 1000000));
     for (i = 0; ; i++) {
         if (sensorNames[i] == NULL)
             break;
         if (mask & (1 << i))
-            printf("%s ", sensorNames[i]);
+            cliPrintf("%s ", sensorNames[i]);
     }
     if (sensors(SENSOR_ACC)) {
-        printf("ACCHW: %s", accNames[accHardware]);
+        cliPrintf("ACCHW: %s", accNames[accHardware]);
         if (accHardware == ACC_MPU6050)
-            printf(".%c", core.mpu6050_scale ? 'o' : 'n');
+            cliPrintf(".%c", core.mpu6050_scale ? 'o' : 'n');
     }
     cliPrint("\r\n");
 
-    printf("Cycle Time: %d, I2C Errors: %d, config size: %d\r\n", cycleTime, i2cGetErrorCounter(), sizeof(master_t));
+    cliPrintf("Cycle Time: %d, I2C Errors: %d, config size: %lu\r\n", cycleTime, i2cGetErrorCounter(), sizeof(master_t));
 }
 
 static void cliVersion(char *cmdline)

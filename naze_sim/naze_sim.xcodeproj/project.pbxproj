@@ -11,6 +11,8 @@
 		8FB5F555193B960000122934 /* sim_flash.c in Sources */ = {isa = PBXBuildFile; fileRef = 8FB5F554193B960000122934 /* sim_flash.c */; };
 		8FB5F557193B965000122934 /* sim_unimplemented.c in Sources */ = {isa = PBXBuildFile; fileRef = 8FB5F556193B965000122934 /* sim_unimplemented.c */; };
 		8FB5F559193B982600122934 /* sim_pwm.c in Sources */ = {isa = PBXBuildFile; fileRef = 8FB5F558193B982600122934 /* sim_pwm.c */; };
+		8FDADD251941BD130049456E /* sim_serial.c in Sources */ = {isa = PBXBuildFile; fileRef = 8FDADD241941BD130049456E /* sim_serial.c */; };
+		8FDADD271941BD4F0049456E /* sim_led_beeper.c in Sources */ = {isa = PBXBuildFile; fileRef = 8FDADD261941BD4F0049456E /* sim_led_beeper.c */; };
 		8FE71E671939185000217743 /* naze_sim.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8FE71E661939185000217743 /* naze_sim.1 */; };
 		8FE71E71193918CF00217743 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 8FE71E70193918CF00217743 /* main.c */; };
 		8FE71E7619391C1500217743 /* sim.c in Sources */ = {isa = PBXBuildFile; fileRef = 8FE71E7519391C1500217743 /* sim.c */; };
@@ -45,6 +47,8 @@
 		8FB5F554193B960000122934 /* sim_flash.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sim_flash.c; sourceTree = "<group>"; };
 		8FB5F556193B965000122934 /* sim_unimplemented.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sim_unimplemented.c; sourceTree = "<group>"; };
 		8FB5F558193B982600122934 /* sim_pwm.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sim_pwm.c; sourceTree = "<group>"; };
+		8FDADD241941BD130049456E /* sim_serial.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sim_serial.c; sourceTree = "<group>"; };
+		8FDADD261941BD4F0049456E /* sim_led_beeper.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sim_led_beeper.c; sourceTree = "<group>"; };
 		8FE71E611939185000217743 /* naze_sim */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = naze_sim; sourceTree = BUILT_PRODUCTS_DIR; };
 		8FE71E661939185000217743 /* naze_sim.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = naze_sim.1; sourceTree = "<group>"; };
 		8FE71E6F193918CF00217743 /* board.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = board.h; path = ../../src/board.h; sourceTree = "<group>"; };
@@ -117,14 +121,12 @@
 		8FE71E631939185000217743 /* naze_sim */ = {
 			isa = PBXGroup;
 			children = (
-				8FE71EA0193929CA00217743 /* rxmsp.c */,
-				8FE71E991939277500217743 /* drv_softserial.h */,
-				8FE71E9A1939277500217743 /* drv_spi.h */,
-				8FE71E9B1939277500217743 /* drv_system.h */,
-				8FE71E9C1939277500217743 /* drv_timer.h */,
-				8FE71E9D1939277500217743 /* drv_uart.h */,
-				8FE71E9E1939277500217743 /* mixer.c */,
+				8FE71E6F193918CF00217743 /* board.h */,
 				8FE71E97193924D400217743 /* buzzer.c */,
+				8FE71E831939214200217743 /* cli.c */,
+				8FE71E841939214200217743 /* cli.h */,
+				8FE71E7F19391E9700217743 /* config.c */,
+				8FE71E821939210000217743 /* drv_adc.h */,
 				8FE71E8B1939243700217743 /* drv_adxl345.h */,
 				8FE71E8C1939243700217743 /* drv_bma280.h */,
 				8FE71E8D1939243700217743 /* drv_bmp085.h */,
@@ -135,31 +137,35 @@
 				8FE71E921939243700217743 /* drv_mma845x.h */,
 				8FE71E931939243700217743 /* drv_mpu3050.h */,
 				8FE71E941939243700217743 /* drv_mpu6050.h */,
+				8FB5F552193B8FD800122934 /* drv_mpu6050_sim.c */,
 				8FE71E951939243700217743 /* drv_ms5611.h */,
 				8FE71E961939243700217743 /* drv_pwm.h */,
-				8FE71E881939220300217743 /* utils.c */,
-				8FE71E891939220300217743 /* utils.h */,
-				8FE71E861939219C00217743 /* serial.c */,
-				8FE71E831939214200217743 /* cli.c */,
-				8FE71E841939214200217743 /* cli.h */,
-				8FE71E821939210000217743 /* drv_adc.h */,
 				8FE71E8119391FD600217743 /* drv_serial.h */,
-				8FE71E7F19391E9700217743 /* config.c */,
+				8FE71E991939277500217743 /* drv_softserial.h */,
+				8FE71E9A1939277500217743 /* drv_spi.h */,
+				8FE71E9B1939277500217743 /* drv_system.h */,
+				8FE71E9C1939277500217743 /* drv_timer.h */,
+				8FE71E9D1939277500217743 /* drv_uart.h */,
 				8FE71E7D19391E0E00217743 /* gps.c */,
 				8FE71E7B19391DF500217743 /* imu.c */,
-				8FE71E7919391DD100217743 /* mw.c */,
-				8FE71E7719391D9C00217743 /* sensors.c */,
-				8FE71E72193918F200217743 /* mw.h */,
-				8FE71E73193918F200217743 /* telemetry_common.h */,
-				8FE71E6F193918CF00217743 /* board.h */,
 				8FE71E70193918CF00217743 /* main.c */,
+				8FE71E9E1939277500217743 /* mixer.c */,
+				8FE71E7919391DD100217743 /* mw.c */,
+				8FE71E72193918F200217743 /* mw.h */,
 				8FE71E661939185000217743 /* naze_sim.1 */,
-				8FE71E741939199000217743 /* sim.h */,
+				8FE71EA0193929CA00217743 /* rxmsp.c */,
+				8FE71E7719391D9C00217743 /* sensors.c */,
+				8FE71E861939219C00217743 /* serial.c */,
 				8FE71E7519391C1500217743 /* sim.c */,
-				8FB5F552193B8FD800122934 /* drv_mpu6050_sim.c */,
+				8FE71E741939199000217743 /* sim.h */,
 				8FB5F554193B960000122934 /* sim_flash.c */,
-				8FB5F556193B965000122934 /* sim_unimplemented.c */,
+				8FDADD261941BD4F0049456E /* sim_led_beeper.c */,
 				8FB5F558193B982600122934 /* sim_pwm.c */,
+				8FDADD241941BD130049456E /* sim_serial.c */,
+				8FB5F556193B965000122934 /* sim_unimplemented.c */,
+				8FE71E73193918F200217743 /* telemetry_common.h */,
+				8FE71E881939220300217743 /* utils.c */,
+				8FE71E891939220300217743 /* utils.h */,
 			);
 			path = naze_sim;
 			sourceTree = "<group>";
@@ -224,6 +230,7 @@
 				8FE71E871939219C00217743 /* serial.c in Sources */,
 				8FE71E7A19391DD100217743 /* mw.c in Sources */,
 				8FE71E98193924D400217743 /* buzzer.c in Sources */,
+				8FDADD271941BD4F0049456E /* sim_led_beeper.c in Sources */,
 				8FE71E8A1939220300217743 /* utils.c in Sources */,
 				8FE71E7819391D9C00217743 /* sensors.c in Sources */,
 				8FE71E7C19391DF500217743 /* imu.c in Sources */,
@@ -232,6 +239,7 @@
 				8FB5F555193B960000122934 /* sim_flash.c in Sources */,
 				8FE71E7619391C1500217743 /* sim.c in Sources */,
 				8FB5F559193B982600122934 /* sim_pwm.c in Sources */,
+				8FDADD251941BD130049456E /* sim_serial.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

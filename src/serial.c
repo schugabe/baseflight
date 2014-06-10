@@ -136,7 +136,7 @@ void serialize32(uint32_t a)
 void serialize16(int16_t a)
 {
     static uint8_t t;
-    t = a;
+    t = a & 0xFF;
     serialWrite(core.mainport, t);
     checksum ^= t;
     t = a >> 8 & 0xff;

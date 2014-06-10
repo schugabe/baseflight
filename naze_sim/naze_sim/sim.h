@@ -139,7 +139,8 @@ void FLASH_ClearFlag(uint32_t FLASH_FLAG);
 void FLASH_Lock(void);
 FLASH_Status FLASH_ErasePage(uint8_t* Page_Address);
 FLASH_Status FLASH_ProgramWord(uint8_t* Address, uint32_t Data);
-
+void loadEEPROM(void);
+extern uint8_t* FLASH_WRITE_ADDR;
 
 extern int SystemCoreClock;
 extern uint32_t hse_value;
@@ -147,4 +148,10 @@ extern USART_TypeDef *USART1;
 extern USART_TypeDef *USART2;
 extern GPIO_TypeDef *GPIOB;
 
+void digitalHi(GPIO_TypeDef* p,uint32_t i);
+void digitalLo(GPIO_TypeDef* p,uint32_t i);
+void digitalToggle(GPIO_TypeDef* p,uint32_t i);
+void digitalIn(GPIO_TypeDef* p,uint32_t i);
 
+
+int cliPrintf(char *format, ...);

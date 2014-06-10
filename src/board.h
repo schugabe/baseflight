@@ -22,8 +22,8 @@
 
 #ifndef __CC_ARM
 #ifndef SIM
-// only need this garbage on gcc
 #define USE_LAME_PRINTF
+// only need this garbage on gcc
 #include "printf.h"
 #endif
 #endif
@@ -42,10 +42,16 @@
 #define max(a, b) ((a) > (b) ? (a) : (b))
 #define abs(x) ((x) > 0 ? (x) : -(x))
 
+#ifndef SIM
 // Chip Unique ID on F103
 #define U_ID_0 (*(uint32_t*)0x1FFFF7E8)
 #define U_ID_1 (*(uint32_t*)0x1FFFF7EC)
 #define U_ID_2 (*(uint32_t*)0x1FFFF7F0)
+#else
+extern uint32_t U_ID_0;
+extern uint32_t U_ID_1;
+extern uint32_t U_ID_2;
+#endif
 
 typedef enum {
     SENSOR_GYRO = 1 << 0, // always present

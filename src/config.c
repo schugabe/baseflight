@@ -10,7 +10,8 @@
 #ifndef SIM
 #define FLASH_WRITE_ADDR                (0x08000000 + (uint32_t)FLASH_PAGE_SIZE * (FLASH_PAGE_COUNT - 2))       // use the last 2 KB for storage
 #else
-uint8_t FLASH_WRITE_ADDR[(uint32_t)FLASH_PAGE_SIZE * 2];
+uint8_t FLASH_DATA[(uint32_t)FLASH_PAGE_SIZE * 2];
+uint8_t *FLASH_WRITE_ADDR = FLASH_DATA;
 #endif
 
 master_t mcfg;  // master config struct with data independent from profiles
@@ -101,7 +102,7 @@ void loadAndActivateConfig(void)
 
 void writeEEPROM(uint8_t b, uint8_t updateProfile)
 {
-    FLASH_Status status;
+    FLASH_Status status = 0;
     int i, tries = 3;
     uint8_t chk = 0;
     const uint8_t *p;
@@ -150,6 +151,9 @@ void writeEEPROM(uint8_t b, uint8_t updateProfile)
 
 void checkFirstTime(bool reset)
 {
+#ifdef SIM
+    loadEEPROM();
+#endif
     // check the EEPROM integrity before resetting values
     if (!validEEPROM() || reset) {
         resetConf();

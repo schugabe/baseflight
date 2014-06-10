@@ -8,25 +8,6 @@
 
 #include "board.h"
 
-void serialWrite(serialPort_t *instance, uint8_t ch){
-    
-}
-uint8_t serialTotalBytesWaiting(serialPort_t *instance){
-    return 0;
-}
-uint8_t serialRead(serialPort_t *instance) {
-    return 0;
-}
-void serialSetBaudRate(serialPort_t *instance, uint32_t baudRate) {
-    
-}
-void serialSetMode(serialPort_t *instance, portMode_t mode) {
-    
-}
-bool isSerialTransmitBufferEmpty(serialPort_t *instance) {
-    return true;
-}
-
 
 void adcInit(drv_adc_config_t *init) {
     
@@ -155,10 +136,5 @@ void setupSoftSerialSecondary(uint8_t inverted) {
     
 }
 
-void systemBeep(bool onoff) {
-    
-}
 
-serialPort_t *uartOpen(USART_TypeDef *USARTx, serialReceiveCallbackPtr callback, uint32_t baudRate, portMode_t mode) {
-    return NULL;
-}
+

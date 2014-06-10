@@ -97,8 +97,6 @@ void annexCode(void)
     static int64_t mAhdrawnRaw = 0;
     static int32_t vbatCycleTime = 0;
 
-    int i;
-
     // PITCH & ROLL only dynamic PID adjustemnt,  depending on throttle value
     if (rcData[THROTTLE] < cfg.tpa_breakpoint) {
         prop2 = 100;
@@ -169,7 +167,7 @@ void annexCode(void)
                 amperageRaw += adcGetChannel(ADC_EXTERNAL_CURRENT);
                 amperage = currentSensorToCentiamps(amperageRaw / 8);
                 mAhdrawnRaw += (amperage * vbatCycleTime) / 1000;
-                mAhdrawn = mAhdrawnRaw / (3600 * 100);
+                mAhdrawn = (int32_t)(mAhdrawnRaw / (3600 * 100));
                 vbatCycleTime = 0;
             }
             
