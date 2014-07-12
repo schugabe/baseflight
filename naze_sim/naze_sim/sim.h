@@ -155,3 +155,9 @@ void digitalIn(GPIO_TypeDef* p,uint32_t i);
 
 
 int cliPrintf(char *format, ...);
+
+bool createListenThread();
+uint16_t getDataRC(int channel);
+void getDataGyro(int16_t* data);
+void getDataAcc(int16_t *data);
+void sendUpdateRC(int channel, uint16_t data);

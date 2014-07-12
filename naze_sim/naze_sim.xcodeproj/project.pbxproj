@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8F54091619572F6F00212FA3 /* sim_interface.c in Sources */ = {isa = PBXBuildFile; fileRef = 8F54091519572F6F00212FA3 /* sim_interface.c */; };
 		8FB5F553193B8FD800122934 /* drv_mpu6050_sim.c in Sources */ = {isa = PBXBuildFile; fileRef = 8FB5F552193B8FD800122934 /* drv_mpu6050_sim.c */; };
 		8FB5F555193B960000122934 /* sim_flash.c in Sources */ = {isa = PBXBuildFile; fileRef = 8FB5F554193B960000122934 /* sim_flash.c */; };
 		8FB5F557193B965000122934 /* sim_unimplemented.c in Sources */ = {isa = PBXBuildFile; fileRef = 8FB5F556193B965000122934 /* sim_unimplemented.c */; };
@@ -43,6 +44,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8F54091519572F6F00212FA3 /* sim_interface.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sim_interface.c; sourceTree = "<group>"; };
 		8FB5F552193B8FD800122934 /* drv_mpu6050_sim.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = drv_mpu6050_sim.c; sourceTree = "<group>"; };
 		8FB5F554193B960000122934 /* sim_flash.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sim_flash.c; sourceTree = "<group>"; };
 		8FB5F556193B965000122934 /* sim_unimplemented.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sim_unimplemented.c; sourceTree = "<group>"; };
@@ -157,6 +159,7 @@
 				8FE71E7719391D9C00217743 /* sensors.c */,
 				8FE71E861939219C00217743 /* serial.c */,
 				8FE71E7519391C1500217743 /* sim.c */,
+				8F54091519572F6F00212FA3 /* sim_interface.c */,
 				8FE71E741939199000217743 /* sim.h */,
 				8FB5F554193B960000122934 /* sim_flash.c */,
 				8FDADD261941BD4F0049456E /* sim_led_beeper.c */,
@@ -230,6 +233,7 @@
 				8FE71E871939219C00217743 /* serial.c in Sources */,
 				8FE71E7A19391DD100217743 /* mw.c in Sources */,
 				8FE71E98193924D400217743 /* buzzer.c in Sources */,
+				8F54091619572F6F00212FA3 /* sim_interface.c in Sources */,
 				8FDADD271941BD4F0049456E /* sim_led_beeper.c in Sources */,
 				8FE71E8A1939220300217743 /* utils.c in Sources */,
 				8FE71E7819391D9C00217743 /* sensors.c in Sources */,

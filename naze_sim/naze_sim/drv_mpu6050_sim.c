@@ -25,10 +25,11 @@ static void mpu6050AccRead(int16_t *accData)
 {
     int16_t data[3];
     
-    data[X] = -310;
+    /*data[X] = -310;
     data[Y] = -400;
-    data[Z] = 4112;
+    data[Z] = 4112;*/
     
+    getDataAcc(data);
     alignSensors(data, accData, accAlign);
 }
 
@@ -55,6 +56,8 @@ static void mpu6050GyroRead(int16_t *gyroData)
         //data[Y] = (int16_t)(100.0f*sinf(bla));
         //data[Z] = (int16_t)(100.0f*cosf(bla));
     //}
+    
+    getDataGyro(data);
     
     alignSensors(data, gyroData, gyroAlign);
 }
