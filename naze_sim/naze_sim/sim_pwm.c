@@ -9,25 +9,20 @@
 #include "board.h"
 #include "mw.h"
 
-uint16_t last_value[8];
 
 bool pwmInit(drv_pwm_config_t *init) {
-    int i;
-    for (i=0; i < 8; i++) {
-        last_value[i] = 0;
-    }
-    return false;
+    return true;
 }
+
 void pwmWriteMotor(uint8_t index, uint16_t value) {
-    if (last_value[index] != value) {
-        //printf("%d motor: %i\n",index,value);
-        last_value[index] = value;
-    }
+    sendUpdateRC(index, value);
 }
+
 void pwmWriteServo(uint8_t index, uint16_t value) {
-    
+    sendUpdateRC(index, value);
 }
 uint16_t pwmRead(uint8_t channel) {
+    return getDataRC(channel);
 /*    static long ticks = 0;
     ticks++;
     
@@ -49,6 +44,7 @@ uint16_t pwmRead(uint8_t channel) {
                 ticks = 1001;
             return mcfg.midrc;
         }
-    }*/
-    return mcfg.midrc;
+    }
+    
+    return mcfg.midrc;*/
 }
