@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 Johannes Kasberger. All rights reserved.
 //
 #include "board.h"
+#include <unistd.h>
+#include <sys/types.h>
 
 #define FLASH_SIZE                  2048
 
@@ -33,7 +35,7 @@ void FLASH_Lock(void) {
 }
 
 void FLASH_Unlock(void) {
-    configFile = fopen("flash.bin","wb+");
+    configFile = fopen("flash.bin","ab+");
 }
 
 void FLASH_ClearFlag(uint32_t FLASH_FLAG) {
@@ -46,9 +48,7 @@ FLASH_Status FLASH_ErasePage(uint8_t* Page_Address) {
     memset(Page_Address, FLASH_SIZE, 0);
     
     if (configFile != NULL) {
-        fseek(configFile, 0, SEEK_SET);
-        uint8_t zero = 0;
-        fwrite(&zero, sizeof(zero), FLASH_SIZE, configFile);
+        freopen("flash.bin", "wb", configFile);
     }
     return status;
 }
