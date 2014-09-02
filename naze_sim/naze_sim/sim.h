@@ -160,4 +160,4 @@ bool createListenThread();
 uint16_t getDataRC(int channel);
 void getDataGyro(int16_t* data);
 void getDataAcc(int16_t *data);
-void sendUpdateRC(int channel, uint16_t data);
+void sendUpdateRC(unsigned int channel, uint16_t data);

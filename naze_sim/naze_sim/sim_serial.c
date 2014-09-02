@@ -22,10 +22,10 @@ static uartPort_t uartPort1;
 static DMA_Channel_TypeDef dma_channel;
 
 #define BUFFER_SIZE 1024
-char buffer[BUFFER_SIZE];
-int read_buffer_index = 0;
-int bytes_in_buffer = 0;
-int sockfd;
+static char buffer[BUFFER_SIZE];
+static int read_buffer_index = 0;
+static int bytes_in_buffer = 0;
+static int sockfd;
 
 void serialWrite(serialPort_t *instance, uint8_t ch){
     write(sockfd,&ch,1);
@@ -110,7 +110,7 @@ void openSocket()
     serv_addr.sin_port = htons(portno);
     if (connect(sockfd,(struct sockaddr *) &serv_addr,sizeof(serv_addr)) < 0) {
         printf("ERROR connecting");
-        exit(0);
+        //exit(0);
     }
 }
 

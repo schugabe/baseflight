@@ -17,40 +17,39 @@
 #include <time.h>
 #include <pthread.h>
 #include <signal.h>
-
+#include <arpa/inet.h>
 
 #include "board.h"
 #include "mw.h"
 #include "telemetry_common.h"
 
-pthread_t threadid;
-int sockfd;
-int running = 1;
-pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;
+#define CHANNEL_COUNT 8
+
+static pthread_t threadid;
+static int sockfd_interface;
+static int running = 1;
+static pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;
 
 typedef struct in_msg_t {
-    int version;
+    uint16_t version;
     int16_t gyroData[3];
     int16_t accelData[3];
-    uint16_t rcData[8];
+    uint16_t rcData[CHANNEL_COUNT];
 } in_msg_t;
 
-in_msg_t lastMsg;
+static in_msg_t lastMsg;
 
 typedef struct out_msg_t {
     int version;
-    int channel;
-    int16_t rcData;
+    int16_t rcData[CHANNEL_COUNT];
 } out_msg_t;
 
+static out_msg_t outMsg;
+
 bool openPort(int portno) {
-    sockfd = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
+    sockfd_interface = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
     
-	if (sockfd < 0)
-		return false;
-    
-	const int on = 1;
-	if (setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &on, sizeof(on)) < 0)
+	if (sockfd_interface < 0)
 		return false;
     
 	struct sockaddr_in serv_addr;
@@ -60,9 +59,10 @@ bool openPort(int portno) {
 	serv_addr.sin_addr.s_addr = INADDR_ANY;
 	serv_addr.sin_port = htons(portno);
     
-	if (bind(sockfd, (struct sockaddr *) &serv_addr, sizeof(serv_addr)) < 0)
+	if (bind(sockfd_interface, (struct sockaddr *) &serv_addr, sizeof(serv_addr)) < 0)
 		return false;
     
+    outMsg.version = 1;
     return true;
 }
 
@@ -79,31 +79,23 @@ void setData(in_msg_t *msg) {
 }
 
 void* communicationThread(void* unused) {
-	int n;
     in_msg_t msg;
-	puts("Listening...");
-	while (running) {
+    struct sockaddr_in si_other;
+    
+	puts("Listening for packets...");
+	
+    while (running) {
         memset(&msg,0,sizeof(msg));
-		size_t len_rec = 0;
-		do {
-			n = read(sockfd, (void*)&msg+len_rec, sizeof(msg)-len_rec);
-			if (n <= 0) {
-				break;
-			}
-			len_rec += n;
-		} while (len_rec != sizeof(msg));
+        memset((char *) &si_other, 0, sizeof(si_other));
+        unsigned int slen = sizeof(si_other);
+        ssize_t len_rec = recvfrom(sockfd_interface, &msg, sizeof(msg), 0, (struct sockaddr *) &si_other, &slen);
+        if (len_rec == -1)
+            continue;
         
-		if (n < 0) {
-			if (running)
-				fputs("Read error\n", stderr);
-			break;
-		}
-		if (!n)
-			continue;
-        
-        setData(&msg);
-        
-        
+        if (len_rec == sizeof(msg)) {
+            setData(&msg);
+            sendto(sockfd_interface, &outMsg, sizeof(outMsg), 0, (struct sockaddr*) &si_other, slen);
+        }
 	}
 	return NULL;
 }
@@ -114,6 +106,8 @@ bool createListenThread() {
     
 	if (pthread_create(&threadid, NULL, communicationThread, NULL) != 0)
         return false;
+    //void *bla;
+    //communicationThread(bla);
     return true;
 }
 
@@ -160,11 +154,8 @@ uint16_t getDataRC(int channel) {
     return data;
 }
 
-void sendUpdateRC(int channel, uint16_t data) {
-    out_msg_t msg;
-    msg.version = 1;
-    msg.channel = channel;
-    msg.rcData = data;
-    write(sockfd, &msg, sizeof(msg));
+void sendUpdateRC(unsigned int channel, uint16_t data) {
+    if (channel < CHANNEL_COUNT)
+        outMsg.rcData[channel] = data;
 }
 

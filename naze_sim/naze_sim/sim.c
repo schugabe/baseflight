@@ -28,7 +28,7 @@ struct timeval startTime;
 void systemInit(bool overclock) {
     gettimeofday(&startTime,NULL);
     
-    if(createListenThread()) {
+    if(!createListenThread()) {
         exit(1);
     }
     
