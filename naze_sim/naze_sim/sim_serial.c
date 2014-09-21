@@ -17,9 +17,8 @@
 
 #include "board.h"
 
-static uartPort_t uartPort1;
-//static uartPort_t uartPort2;
-static DMA_Channel_TypeDef dma_channel;
+#define UART_COUNT 2
+static uartPort_t uartPort[UART_COUNT];
 
 #define BUFFER_SIZE 1024
 static char buffer[BUFFER_SIZE];
@@ -28,7 +27,10 @@ static int bytes_in_buffer = 0;
 static int sockfd;
 
 void serialWrite(serialPort_t *instance, uint8_t ch){
-    write(sockfd,&ch,1);
+    if (instance->port.baudRate == 0)
+        write(sockfd,&ch,1);
+    else
+        sendUpdateGPS(ch);
 }
 
 int cliPrintf(char *format, ...)
@@ -63,13 +65,18 @@ uint8_t serialTotalBytesWaiting(serialPort_t *instance){
 }
 
 uint8_t serialRead(serialPort_t *instance) {
-    uint8_t c = 0;
-    if (bytes_in_buffer > 0) {
-        c = buffer[read_buffer_index];
-        read_buffer_index++;
-        bytes_in_buffer--;
+    if (instance->port.baudrate == 0) {
+        uint8_t c = 0;
+        if (bytes_in_buffer > 0) {
+            c = buffer[read_buffer_index];
+            read_buffer_index++;
+            bytes_in_buffer--;
+        }
+        return c;
+    } else if (instance->port.baudrate == 1) {
+        
     }
-    return c;
+    
 }
 
 void serialSetBaudRate(serialPort_t *instance, uint32_t baudRate) {
@@ -110,30 +117,22 @@ void openSocket()
     serv_addr.sin_port = htons(portno);
     if (connect(sockfd,(struct sockaddr *) &serv_addr,sizeof(serv_addr)) < 0) {
         printf("ERROR connecting");
-        //exit(0);
     }
 }
 
+
 serialPort_t *uartOpen(USART_TypeDef *USARTx, serialReceiveCallbackPtr callback, uint32_t baudRate, portMode_t mode) {
-    uartPort_t *s;
-    static volatile uint8_t rx1Buffer[UART1_RX_BUFFER_SIZE];
-    static volatile uint8_t tx1Buffer[UART1_TX_BUFFER_SIZE];
+    uartPort_t *s[UART_COUNT];
+    int index = 0;
     
-    s = &uartPort1;
-    //s->port.vTable = uartVTable;
+    if (USARTx == USART2)
+        index = 1;
     
-    s->port.baudRate = baudRate;
+    s[index] = &uartPort[index];
+    s[index]->port.baudRate = index;
     
-    s->port.rxBuffer = rx1Buffer;
-    s->port.txBuffer = tx1Buffer;
-    s->port.rxBufferSize = UART1_RX_BUFFER_SIZE;
-    s->port.txBufferSize = UART1_TX_BUFFER_SIZE;
+    if (index == 0)
+        openSocket();
     
-    s->rxDMAChannel = &dma_channel;
-    s->txDMAChannel = &dma_channel;
-    
-    openSocket();
-    
-    
-    return (serialPort_t *)s;
+    return (serialPort_t *)s[index];
 }

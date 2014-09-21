@@ -35,13 +35,20 @@ typedef struct in_msg_t {
     int16_t gyroData[3];
     int16_t accelData[3];
     uint16_t rcData[CHANNEL_COUNT];
+    uint8_t gpsData[200];
+    int gpsMsgSize;
 } in_msg_t;
 
 static in_msg_t lastMsg;
+static int gpsRead;
+static uint8_t *gpsData = NULL;
+static int gpsMsgSize;
 
 typedef struct out_msg_t {
     int version;
     int16_t rcData[CHANNEL_COUNT];
+    uint8_t gpsData[200];
+    int gpsBytes;
 } out_msg_t;
 
 static out_msg_t outMsg;
@@ -71,8 +78,26 @@ void setData(in_msg_t *msg) {
         puts("Mutex locking not possible!");
     }
     
-    memcpy(&lastMsg, msg, sizeof(in_msg_t));
+    if (gpsData != NULL) {
+        uint8_t tmpGps[200];
+        int difference = 0;
+        if (gpsRead < gpsMsgSize) {
+            memcpy(tmpsGps, gpsData+gpsRead, gpsMsgSize-gpsRead);
+            difference = gpsMsgSize-gpsRead;
+        }
+        memcpy(&lastMsg, msg, sizeof(in_msg_t));
+        free(gpsData);
+        
+        gpsData = malloc(msg->gpsMsgSize+difference);
+        memcpy(gpsData,tmpGps,difference);
+        memcpy(gpsData+difference,msg->gpsData,msg->gpsMsgSize);
+    }
+    else {
+        gpsData = malloc(msg->gpsMsgSize);
+        memcpy(gpsData,msg->gpsData,msg->gpsMsgSize);
+    }
     
+    gpsRead = 0;
     if (pthread_mutex_unlock(&lock)) {
         puts("Mutex unlocking not possible!");
     }
@@ -95,6 +120,7 @@ void* communicationThread(void* unused) {
         if (len_rec == sizeof(msg)) {
             setData(&msg);
             sendto(sockfd_interface, &outMsg, sizeof(outMsg), 0, (struct sockaddr*) &si_other, slen);
+            memset(outMsg,0,sizeof(outMsg));
         }
 	}
 	return NULL;
@@ -106,8 +132,8 @@ bool createListenThread() {
     
 	if (pthread_create(&threadid, NULL, communicationThread, NULL) != 0)
         return false;
-    //void *bla;
-    //communicationThread(bla);
+    void *bla;
+    communicationThread(bla);
     return true;
 }
 
@@ -159,3 +185,22 @@ void sendUpdateRC(unsigned int channel, uint16_t data) {
         outMsg.rcData[channel] = data;
 }
 
+void sendUpdateGPS(uint8_t ch) {
+    outMsg.gpsData[outMsg.gpsBytes] = ch;
+    outMsg.gpsBytes++;
+}
+
+uint8_t recvGPS(void) {
+    if (pthread_mutex_lock(&lock)) {
+        puts("Mutex locking not possible!");
+    }
+    
+    uint8_t tmp = gpsData[gpsRead++];
+    
+    if (pthread_mutex_unlock(&lock)) {
+        puts("Mutex unlocking not possible!");
+    }
+    
+    return tmp;
+}
+    
