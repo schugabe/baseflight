@@ -726,24 +726,30 @@ static void evaluateCommand(uint8_t recvLen)
         serialize32(U_ID_1);
         serialize32(U_ID_2);
         break;
+#ifdef GPS
     case MSP_GPSSVINFO:
         headSerialReply(1 + (GPS_numCh * 4));
         serialize8(GPS_numCh);
-           for (i = 0; i < GPS_numCh; i++){
-               serialize8(GPS_svinfo_chn[i]);
-               serialize8(GPS_svinfo_svid[i]);
-               serialize8(GPS_svinfo_quality[i]);
-               serialize8(GPS_svinfo_cno[i]);
-            }
+        for (i = 0; i < GPS_numCh; i++){
+            serialize8(GPS_svinfo_chn[i]);
+            serialize8(GPS_svinfo_svid[i]);
+            serialize8(GPS_svinfo_quality[i]);
+            serialize8(GPS_svinfo_cno[i]);
+        }
+        // Poll new SVINFO from GPS
+        gpsPollSvinfo();
         break;
-#ifdef GPS
     case MSP_GPSDEBUGINFO:
-        headSerialReply(5);
-        if (sensors(SENSOR_GPS))
+        headSerialReply(16);
+        if (sensors(SENSOR_GPS)) {
             serialize32(GPS_update_rate[1] - GPS_update_rate[0]);
-        else
+            serialize32(GPS_svinfo_rate[1] - GPS_svinfo_rate[0]);
+        } else {
             serialize32(0);
-        serialize8(rcOptions[BOXGPSHOLD]);
+            serialize32(0);
+        }
+        serialize32(GPS_HorizontalAcc);
+        serialize32(GPS_VerticalAcc);
         break;
 #endif /* GPS */
 
