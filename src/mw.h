@@ -195,12 +195,6 @@ typedef struct servoMixer_t {
     uint8_t box;                            // active rule if box is enabled, range [0;3], 0=no box, 1=BOXSERVO1, 2=BOXSERVO2, 3=BOXSERVO3
 } servoMixer_t;
 
-// Custom mixer configuration
-typedef struct mixerRules_t {
-    uint8_t numberRules;
-    const servoMixer_t *rule;
-} mixerRules_t;
-
 #define MAX_SERVO_RULES (2 * MAX_SERVOS)
 #define MAX_SERVOS      8
 #define MAX_SERVO_SPEED UINT8_MAX
@@ -259,6 +253,8 @@ typedef struct config_t {
 
     // Servo-related stuff
     servoParam_t servoConf[MAX_SERVOS];     // servo configuration
+    servoMixer_t sMix[MAX_SERVO_RULES];     // servo mixer rules
+    uint8_t numberRules;                    // number of active servo mixer rules
 
     // Failsafe related configuration
     uint8_t failsafe_delay;                 // Guard time for failsafe activation after signal lost. 1 step = 0.1sec - 1sec in example (10)

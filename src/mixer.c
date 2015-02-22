@@ -6,13 +6,11 @@
 #include "mw.h"
 
 static uint8_t numberMotor = 0;
-static uint8_t numberRules = 0;
 int16_t motor[MAX_MOTORS];
 int16_t motor_disarmed[MAX_MOTORS];
 int16_t servo[MAX_SERVOS] = { 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500 };
 
 static motorMixer_t currentMixer[MAX_MOTORS];
-static servoMixer_t currentServoMixer[MAX_SERVO_RULES];
 
 static const motorMixer_t mixerTri[] = {
     { 1.0f,  0.0f,  1.333333f,  0.0f },     // REAR
@@ -293,10 +291,10 @@ void mixerInit(void)
     }
     
     if (core.useServo) {
-        numberRules = servoMixers[mcfg.mixerConfiguration].numberRules;
+        cfg.numberRules = servoMixers[mcfg.mixerConfiguration].numberRules;
         if (servoMixers[mcfg.mixerConfiguration].rule) {
-            for (i = 0; i < numberRules; i++)
-                currentServoMixer[i] = servoMixers[mcfg.mixerConfiguration].rule[i];
+            for (i = 0; i < cfg.numberRules; i++)
+                cfg.sMix[i] = servoMixers[mcfg.mixerConfiguration].rule[i];
         }
     }
 
@@ -316,13 +314,13 @@ void mixerInit(void)
         f.FIXED_WING = 1;
         
         if (mcfg.mixerConfiguration == MULTITYPE_CUSTOM_PLANE) {
-            // load custom mixer into currentServoMixer
+            // load custom mixer into cfg.sMix
             for (i = 0; i < MAX_SERVO_RULES; i++) {
                 // check if done
                 if (mcfg.customServoMixer[i].rate == 0)
                     break;
-                currentServoMixer[i] = mcfg.customServoMixer[i];
-                numberRules++;
+                cfg.sMix[i] = mcfg.customServoMixer[i];
+                cfg.numberRules++;
             }
         }
     }
@@ -491,25 +489,25 @@ static void servoMixer(void)
         servo[i] = servoMiddle(i);
 
     // mix servos according to rules
-    for (i = 0; i < numberRules; i++) {
+    for (i = 0; i < cfg.numberRules; i++) {
         // consider rule if no box assigned or box is active
-        if (currentServoMixer[i].box == 0 || rcOptions[BOXSERVO1+currentServoMixer[i].box-1]) {
-            uint8_t target = currentServoMixer[i].targetChannel;
-            uint8_t from = currentServoMixer[i].fromChannel;
+        if (cfg.sMix[i].box == 0 || rcOptions[BOXSERVO1+cfg.sMix[i].box-1]) {
+            uint8_t target = cfg.sMix[i].targetChannel;
+            uint8_t from = cfg.sMix[i].fromChannel;
             uint16_t servo_width = cfg.servoConf[target].max - cfg.servoConf[target].min;
-            int16_t min = currentServoMixer[i].min * servo_width / 100 - servo_width / 2;
-            int16_t max = currentServoMixer[i].max * servo_width / 100 - servo_width / 2;
+            int16_t min = cfg.sMix[i].min * servo_width / 100 - servo_width / 2;
+            int16_t max = cfg.sMix[i].max * servo_width / 100 - servo_width / 2;
             
-            if (currentServoMixer[i].speed == 0)
+            if (cfg.sMix[i].speed == 0)
                 currentOutput[i] = input[from];
             else {
                 if (currentOutput[i] < input[from])
-                    currentOutput[i] = constrain(currentOutput[i] + currentServoMixer[i].speed, currentOutput[i], input[from]);
+                    currentOutput[i] = constrain(currentOutput[i] + cfg.sMix[i].speed, currentOutput[i], input[from]);
                 else if (currentOutput[i] > input[from])
-                    currentOutput[i] = constrain(currentOutput[i] - currentServoMixer[i].speed, input[from], currentOutput[i]);
+                    currentOutput[i] = constrain(currentOutput[i] - cfg.sMix[i].speed, input[from], currentOutput[i]);
             }
 
-            servo[target] += servoDirection(target, from) * constrain(((int32_t)currentOutput[i] * currentServoMixer[i].rate) / 100, min, max);
+            servo[target] += servoDirection(target, from) * constrain(((int32_t)currentOutput[i] * cfg.sMix[i].rate) / 100, min, max);
         } else
             currentOutput[i] = 0;
     }
