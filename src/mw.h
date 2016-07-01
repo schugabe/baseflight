@@ -372,6 +372,7 @@ typedef struct master_t {
     uint16_t rssi_adc_max;                  // max input voltage defined by RC-filter (is RSSI never 100% reduce the value) (1...4095)
     uint16_t rssi_adc_offset;               // input offset defined by RC-filter (0...4095)
     uint8_t rc_channel_count;               // total number of incoming RC channels that should be processed, range (8...18), default is 8
+    uint8_t rc_average_count;               // number of sampels that will be averaged for one reading of an rc channel (1..4), default is 4
 
     // gps-related stuff
     uint8_t gps_type;                       // See GPSHardware enum.
@@ -612,4 +613,3 @@ void GPS_set_next_wp(int32_t *lat, int32_t *lon);
 int32_t wrap_18000(int32_t error);
 void fw_nav(void);
 void fw_FlyTo(void);
-

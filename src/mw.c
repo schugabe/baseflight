@@ -296,12 +296,12 @@ void computeRC(void)
             // validate input
             if (capture < PULSE_MIN || capture > PULSE_MAX)
                 capture = mcfg.midrc;
-            rcDataAverage[chan][rcAverageIndex % 4] = capture;
+            rcDataAverage[chan][rcAverageIndex % mcfg.rc_average_count] = capture;
             // clear this since we're not accessing it elsewhere. saves a temp var
             rcData[chan] = 0;
-            for (i = 0; i < 4; i++)
+            for (i = 0; i < mcfg.rc_average_count; i++)
                 rcData[chan] += rcDataAverage[chan][i];
-            rcData[chan] /= 4;
+            rcData[chan] /= mcfg.rc_average_count;
         }
         rcAverageIndex++;
     }
@@ -528,6 +528,8 @@ void loop(void)
                 rcReady = ibusFrameComplete();
                 break;
         }
+    } else {
+      rcReady = rcReadingComplete();
     }
 
     if (((int32_t)(currentTime - rcTime) >= 0) || rcReady) { // 50Hz or data driven

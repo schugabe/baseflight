@@ -255,6 +255,7 @@ static void resetConf(void)
     mcfg.rssi_aux_max = 1000;
     mcfg.rssi_adc_max = 4095;
     mcfg.rc_channel_count = 8;
+    mcfg.rc_average_count = 4;
 
     cfg.pidController = 0;
     cfg.P8[ROLL] = 40;

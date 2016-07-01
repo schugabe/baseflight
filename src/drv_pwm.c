@@ -70,6 +70,7 @@ static uint8_t numInputs = 0;
 static uint8_t pwmFilter = 0;
 static bool syncPWM = false;
 static uint16_t failsafeThreshold = 985;
+static uint32_t rcReady = 0;
 // external vars (ugh)
 extern int16_t failsafeCnt;
 
@@ -314,6 +315,7 @@ static void ppmCallback(uint8_t port, uint16_t capture)
 
     if (diff > 2700) { // Per http://www.rcgroups.com/forums/showpost.php?p=21996147&postcount=3960 "So, if you use 2.5ms or higher as being the reset for the PPM stream start, you will be fine. I use 2.7ms just to be safe."
         chan = 0;
+        rcReady = chan;
     } else {
         if (diff > PULSE_MIN && diff < PULSE_MAX && chan < MAX_PPM_INPUTS) {   // 750 to 2250 ms is our 'valid' channel range
             captures[chan] = diff;
@@ -336,6 +338,7 @@ static void pwmCallback(uint8_t port, uint16_t capture)
         if (pwmPorts[port].capture > PULSE_MIN && pwmPorts[port].capture < PULSE_MAX) { // valid pulse width
             captures[pwmPorts[port].channel] = pwmPorts[port].capture;
             failsafeCheck(pwmPorts[port].channel, pwmPorts[port].capture);
+            rcReady |= (1 << pwmPorts[port].channel);
         }
         // switch state
         pwmPorts[port].state = 0;
@@ -475,4 +478,21 @@ void pwmWriteServo(uint8_t index, uint16_t value)
 uint16_t pwmRead(uint8_t channel)
 {
     return captures[channel];
+}
+
+static uint32_t numberOfChannelsCaptured()
+{
+    uint32_t tmp = rcReady;
+    tmp = tmp - ((tmp >> 1) & 0x55555555);
+    tmp = (tmp & 0x33333333) + ((tmp >> 2) & 0x33333333);
+    return (((tmp + (tmp >> 4)) & 0x0F0F0F0F) * 0x01010101) >> 24;
+}
+
+bool rcReadingComplete()
+{
+    if (numberOfChannelsCaptured() == numInputs) {
+      rcReady = 0;
+      return true;
+    }
+    return false;
 }
